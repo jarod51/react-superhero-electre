@@ -13,7 +13,7 @@ type ResponseType<T> = {
 
 const fetcher = {
 	async get<T> (url: string): Promise<ResponseType<T>> {
-		return axios.get(url)
+		return await axios.get(url)
 	}
 }
 

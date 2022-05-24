@@ -1,35 +1,41 @@
-import { useState } from 'react'
-
-type NavListItemProps = {
-  id: string
-  children: string
-  active: string
-  callback: React.Dispatch<React.SetStateAction<string>>
-}
-
-const NavListItem = ({ id, children, active, callback }: NavListItemProps) => {
-	let classNames = 'cursor-pointer capitalize'
-	if (active === id) classNames += ' text-red-700'
-  return (
-    <li
-      className={classNames}
-      onClick={() => callback(id)}
-    >
-      {children}
-    </li>
-  )
-}
+import { NavLink } from 'react-router-dom'
 
 const NavBar = () => {
-  const [activeLink, setActiveLink] = useState('home')
-  const links = ['home', 'battle', 'heroes', 'search', 'login']
+  const links = [
+    {
+      path: '/',
+      name: 'home',
+    },
+    {
+      path: 'battle',
+      name: 'battle',
+    },
+    {
+      path: 'heroes',
+      name: 'heroes',
+    },
+    {
+      path: 'search',
+      name: 'search',
+    },
+    {
+      path: 'login',
+      name: 'login',
+    },
+  ]
   return (
     <nav>
       <ul className='flex justify-center gap-6 font-bold text-lg my-2'>
         {links.map((link) => (
-          <NavListItem key={link} id={link} active={activeLink} callback={setActiveLink}>
-            {link}
-          </NavListItem>
+          <NavLink
+            key={link.path}
+            to={link.path}
+            className={({ isActive }) =>
+              isActive ? 'cursor-pointer capitalize text-red-700' : 'cursor-pointer capitalize'
+            }
+          >
+            {link.name}
+          </NavLink>
         ))}
       </ul>
     </nav>

@@ -16,12 +16,12 @@ const Heroes = () => {
   // 	- pas d'asynchrone
   // Création - useEffect avec un tableau de dependances vide
   // Mise à jour - useEffect avec une variable a observer dans le tableau de dependances
-  // Destruction
+  // Destruction - retour de useEffect (on doit retoruner une référence à une fonction - cette fonction sera appelée lors de la destruction du composant)
   const [counter, setCounter] = useState(0)
   const [selectedLetter, setSelectedLetter] = useState('a')
   const initialMount = useRef(true)
   const letters = generateLetters()
-  const { heroes, error, loading, onSearchHeroes } = useSearchHeroes()
+  const { heroes, error, loading, onSearchHeroes } = useSearchHeroes('a')
 
   useEffect(() => {
     console.log('Création du Heroes page')
