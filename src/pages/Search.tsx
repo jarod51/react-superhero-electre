@@ -8,8 +8,7 @@ const Search = () => {
     e.preventDefault()
     // Le point d'interrogation correspond à l'optionnal chaining
     // Si searchInputRef.current est null, il ne va pas lire ce qui se trouve à droite de ce dernier et donc éviter de générer un erreur
-    if (searchInputRef.current?.value)
-      onSearchHeroes(searchInputRef.current?.value)
+    if (searchInputRef.current?.value) onSearchHeroes(searchInputRef.current?.value)
     setRequest(true)
   }
   const searchInputRef = useRef<HTMLInputElement>(null)
@@ -27,11 +26,9 @@ const Search = () => {
       <div>
         {loading && <p>Loading...</p>}
         {error && <p className='text-red-600'>Error: {error}</p>}
-        {!loading && !error && heroes.length ? (
-          heroes.map((hero) => <div key={hero.id}>{hero.name}</div>)
-        ) : (
-          request && <p>No heroes found</p>
-        )}
+        {!loading && !error && heroes.length
+          ? heroes.map((hero) => <div key={hero.id}>{hero.name}</div>)
+          : request && <p>No heroes found</p>}
       </div>
     </section>
   )

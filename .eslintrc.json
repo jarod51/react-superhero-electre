@@ -3,9 +3,9 @@
     "import/resolver": {
       "typescript": {}
     },
-		"react": {
-			"version": "detect"
-		}
+    "react": {
+      "version": "detect"
+    }
   },
   "env": {
     "browser": true,
@@ -35,6 +35,7 @@
       {
         "namedComponents": "arrow-function"
       }
-    ]
+    ],
+    "react/jsx-indent": [1, 2]
   }
 }

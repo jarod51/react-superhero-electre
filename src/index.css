@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-	h1 {
-		@apply uppercase text-center tracking-widest text-3xl my-4
-	}
+  h1 {
+    @apply uppercase text-center tracking-widest text-3xl my-4;
+  }
 
-	button {
-		@apply mx-2 px-4 py-1 bg-black text-white rounded
-	}
+  button {
+    @apply mx-2 px-4 py-1 bg-black text-white rounded;
+  }
 }

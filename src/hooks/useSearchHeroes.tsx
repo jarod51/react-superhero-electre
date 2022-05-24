@@ -14,8 +14,7 @@ const useSearchHeroes = (letter?: string) => {
   const [{ heroes, loading, error }, dispatch] = useReducer(searchHeroesReducer, initialState)
 
   useEffect(() => {
-    if (letter)
-      onSearchHeroes(letter)
+    if (letter) onSearchHeroes(letter)
   }, [])
 
   const onSearchHeroes = (letter: string) => {
