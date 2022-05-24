@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
+import HeroesList from '../components/HeroesList'
 import useSearchHeroes from '../hooks/useSearchHeroes'
 
 const generateLetters = () => {
@@ -8,6 +9,7 @@ const generateLetters = () => {
   }
   return letters
 }
+
 
 const Heroes = () => {
   // Fonction pure:
@@ -69,7 +71,7 @@ const Heroes = () => {
       {heroes.length > 0 &&
         !loading &&
         !error &&
-        heroes.map((hero) => <li key={hero.id}>{hero.name}</li>)}
+        <HeroesList heroes={heroes} />}
     </section>
   )
 }

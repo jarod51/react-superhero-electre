@@ -1,9 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useTransition } from 'react'
+import HeroesList from '../components/HeroesList'
 import useSearchHeroes from '../hooks/useSearchHeroes'
 
 const Search = () => {
   const { heroes, loading, error, onSearchHeroes } = useSearchHeroes()
   const [request, setRequest] = useState(false)
+  const [searchHero, setSearchHero] = useState('')
   const onSubmitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault()
     // Le point d'interrogation correspond à l'optionnal chaining
@@ -11,7 +13,17 @@ const Search = () => {
     if (searchInputRef.current?.value) onSearchHeroes(searchInputRef.current?.value)
     setRequest(true)
   }
+
   const searchInputRef = useRef<HTMLInputElement>(null)
+
+  const [isPending, startTransition] = useTransition()
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchHero(e.target.value)
+    startTransition(() => {
+      onSearchHeroes(e.target.value)
+    })
+  }
 
   return (
     <section>
@@ -24,10 +36,14 @@ const Search = () => {
         <button>Search</button>
       </form>
       <div>
+        <p>Search on each keystroke:</p>
+        <input type="text" value={searchHero} onChange={onChangeHandler} />
+      </div>
+      <div>
         {loading && <p>Loading...</p>}
         {error && <p className='text-red-600'>Error: {error}</p>}
         {!loading && !error && heroes.length
-          ? heroes.map((hero) => <div key={hero.id}>{hero.name}</div>)
+          ? <HeroesList heroes={heroes} />
           : request && <p>No heroes found</p>}
       </div>
     </section>
