@@ -25,7 +25,7 @@ const NavBar = () => {
   const links = ['home', 'battle', 'heroes', 'search', 'login']
   return (
     <nav>
-      <ul className='flex justify-center gap-6 font-bold text-xl'>
+      <ul className='flex justify-center gap-6 font-bold text-lg my-2'>
         {links.map((link) => (
           <NavListItem key={link} id={link} active={activeLink} callback={setActiveLink}>
             {link}

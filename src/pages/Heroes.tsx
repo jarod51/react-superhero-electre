@@ -1,7 +1,5 @@
-import { useEffect, useState, useRef, useReducer } from 'react'
-import fetcher, { BASE_URL } from '../api/fetcher'
-import searchHeroesReducer, { ActionTypeName, StateType } from '../reducers/search-heroes-reducer'
-import type { Hero } from '../types/hero'
+import { useEffect, useState, useRef } from 'react'
+import useSearchHeroes from '../hooks/useSearchHeroes'
 
 const generateLetters = () => {
   const letters: string[] = []
@@ -23,12 +21,7 @@ const Heroes = () => {
   const [selectedLetter, setSelectedLetter] = useState('a')
   const initialMount = useRef(true)
   const letters = generateLetters()
-  const initialState: StateType = {
-    heroes: [],
-    loading: true,
-    error: '',
-  }
-  const [{ heroes, loading, error }, dispatch] = useReducer(searchHeroesReducer, initialState)
+  const { heroes, error, loading, onSearchHeroes } = useSearchHeroes()
 
   useEffect(() => {
     console.log('Création du Heroes page')
@@ -36,19 +29,6 @@ const Heroes = () => {
       console.log('Destruction de Heroes page')
     }
   }, [])
-
-  useEffect(() => {
-    fetcher
-      .get<Hero[]>(`${BASE_URL}/heroes?name_like=^${selectedLetter}`)
-      .then((response) => {
-        console.log(response)
-        dispatch({ type: ActionTypeName.SET_HEROES, data: response.data })
-      })
-      .catch((err) => {
-        console.error(err)
-        dispatch({ type: ActionTypeName.SET_ERROR, data: err.message })
-      })
-  }, [selectedLetter])
 
   useEffect(() => {
     if (initialMount.current) {
@@ -63,8 +43,8 @@ const Heroes = () => {
   }, [counter])
 
   const onClickLetter = (letter: string) => {
-    dispatch({ type: ActionTypeName.SET_LOADING })
     setSelectedLetter(letter)
+    onSearchHeroes(letter)
   }
 
   return (
