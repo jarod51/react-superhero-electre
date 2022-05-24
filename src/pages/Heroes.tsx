@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useReducer } from 'react'
 import fetcher, { BASE_URL } from '../api/fetcher'
+import searchHeroesReducer, { ActionTypeName, StateType } from '../reducers/search-heroes-reducer'
 import type { Hero } from '../types/hero'
 
 const generateLetters = () => {
@@ -19,13 +20,15 @@ const Heroes = () => {
   // Mise à jour - useEffect avec une variable a observer dans le tableau de dependances
   // Destruction
   const [counter, setCounter] = useState(0)
-  const [heroes, setHeroes] = useState<Hero[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
   const [selectedLetter, setSelectedLetter] = useState('a')
   const initialMount = useRef(true)
   const letters = generateLetters()
-  console.log(letters)
+  const initialState: StateType = {
+    heroes: [],
+    loading: true,
+    error: '',
+  }
+  const [{ heroes, loading, error }, dispatch] = useReducer(searchHeroesReducer, initialState)
 
   useEffect(() => {
     console.log('Création du Heroes page')
@@ -39,14 +42,11 @@ const Heroes = () => {
       .get<Hero[]>(`${BASE_URL}/heroes?name_like=^${selectedLetter}`)
       .then((response) => {
         console.log(response)
-        setHeroes(response.data)
+        dispatch({ type: ActionTypeName.SET_HEROES, data: response.data })
       })
       .catch((err) => {
         console.error(err)
-        setError(err.message)
-      })
-      .finally(() => {
-        setLoading(false)
+        dispatch({ type: ActionTypeName.SET_ERROR, data: err.message })
       })
   }, [selectedLetter])
 
@@ -63,8 +63,7 @@ const Heroes = () => {
   }, [counter])
 
   const onClickLetter = (letter: string) => {
-    setLoading(true)
-    setError('')
+    dispatch({ type: ActionTypeName.SET_LOADING })
     setSelectedLetter(letter)
   }
 
@@ -85,9 +84,12 @@ const Heroes = () => {
           </li>
         ))}
       </ul>
-			{error && <p className='text-red-600'>Houston, we have a problem: {error}</p> }
+      {error && <p className='text-red-600'>Houston, we have a problem: {error}</p>}
       {loading && <p>Loading...</p>}
-      {heroes.length > 0 && !loading && !error && heroes.map((hero) => <li key={hero.id}>{hero.name}</li>)}
+      {heroes.length > 0 &&
+        !loading &&
+        !error &&
+        heroes.map((hero) => <li key={hero.id}>{hero.name}</li>)}
     </section>
   )
 }
