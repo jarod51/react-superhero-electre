@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
+import Button from '../components/Button'
 import HeroesList from '../components/HeroesList'
 import useSearchHeroes from '../hooks/useSearchHeroes'
 
@@ -22,7 +23,7 @@ const Heroes = () => {
   const [counter, setCounter] = useState(0)
   const [selectedLetter, setSelectedLetter] = useState('a')
   const initialMount = useRef(true)
-  const letters = generateLetters()
+  const letters = useMemo(() => generateLetters(), [])
   const { heroes, error, loading, onSearchHeroes } = useSearchHeroes('a')
 
   useEffect(() => {
@@ -49,12 +50,15 @@ const Heroes = () => {
     onSearchHeroes(letter)
   }
 
+  const increment = useCallback(() => setCounter((c) => c + 1), [])
+  const decrement = useCallback(() => setCounter((c) => c - 1), [])
+
   return (
     <section>
       <h1>Heroes Page</h1>
-      {/* <p>Heroes counter: {counter}</p>
-      <button onClick={() => setCounter((c) => c + 1)}>Incrémenter</button>
-      <button onClick={() => setCounter((c) => c - 1)}>Décrémenter</button> */}
+      <p>Heroes counter: {counter}</p>
+      <Button onClickHandler={increment}>Incrémenter</Button>
+      <Button onClickHandler={decrement}>Décrémenter</Button>
       <ul className='flex justify-center gap-2 font-semibold'>
         {letters.map((letter) => (
           <li
