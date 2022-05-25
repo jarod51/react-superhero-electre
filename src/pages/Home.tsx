@@ -1,10 +1,13 @@
-import { useContext } from 'react'
-import AuthContext from '../context/auth-context'
+// import { useContext } from 'react'
+// import AuthContext from '../context/auth-context'
 import useCounter from '../hooks/useCounter'
+import { useAppSelector } from '../redux/hook'
+import { getAuthStatus } from '../redux/reducers/auth'
 
 const Home = () => {
   const { counter, increment, decrement } = useCounter(15)
-  const { email, authenticated } = useContext(AuthContext)
+  // const { email, authenticated } = useContext(AuthContext)
+  const { authenticated, email } = useAppSelector(getAuthStatus)
 
   return (
     <section>

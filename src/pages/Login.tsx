@@ -1,10 +1,13 @@
-import React, { useContext, useState } from 'react'
-import AuthContext from '../context/auth-context'
+import React, { useState } from 'react'
+import { useAppDispatch } from '../redux/hook'
+import { login } from '../redux/reducers/auth'
+// import AuthContext from '../context/auth-context'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { login } = useContext(AuthContext)
+  // const { login } = useContext(AuthContext)
+  const dispatch = useAppDispatch()
 
   const onSubmitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault()
@@ -13,7 +16,8 @@ const Login = () => {
       password,
     })
     if (email === "admin@email.com" && password === "admin") {
-      login(email)
+      // login(email)
+      dispatch(login(email))
     }
   }
 

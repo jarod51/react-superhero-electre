@@ -1,9 +1,13 @@
-import { useContext } from 'react'
+// import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import AuthContext from '../context/auth-context'
+// import AuthContext from '../context/auth-context'
+import { useAppSelector } from '../redux/hook'
+import { getAuthStatus } from '../redux/reducers/auth'
 
 const NavBar = () => {
-  const { authenticated } = useContext(AuthContext)
+  // const { authenticated } = useContext(AuthContext)
+  const { authenticated } = useAppSelector(getAuthStatus)
+
   const links = [
     {
       path: '/',
