@@ -1,6 +1,9 @@
+import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import AuthContext from '../context/auth-context'
 
 const NavBar = () => {
+  const { authenticated } = useContext(AuthContext)
   const links = [
     {
       path: '/',
@@ -19,10 +22,21 @@ const NavBar = () => {
       name: 'search',
     },
     {
-      path: 'login',
-      name: 'login',
+      path: 'cities',
+      name: 'cities',
     },
   ]
+  if (authenticated) {
+    links.push({
+      path: 'logout',
+      name: 'logout',
+    })
+  } else {
+    links.push({
+      path: 'login',
+      name: 'login',
+    })
+  }
   return (
     <nav>
       <ul className='flex justify-center gap-6 font-bold text-lg my-2'>

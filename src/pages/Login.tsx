@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import AuthContext from '../context/auth-context'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const { login } = useContext(AuthContext)
 
   const onSubmitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault()
@@ -10,6 +12,9 @@ const Login = () => {
       email,
       password,
     })
+    if (email === "admin@email.com" && password === "admin") {
+      login(email)
+    }
   }
 
   return (

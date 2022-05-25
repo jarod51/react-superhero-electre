@@ -1,48 +1,58 @@
-import useCounter from './hooks/useCounter'
-import Battle from './pages/Battle'
-import Heroes from './pages/Heroes'
-import Search from './pages/Search'
-// import Login from './pages/Login'
+import { lazy, Suspense, useState } from 'react'
+import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Layout from './hoc/Layout'
-import Login from './pages/Login'
+import AuthContext from './context/auth-context'
+import Cities from './pages/Cities'
+import { store } from './redux/store'
 
-// const LoginLayout = () => {
-//   return (
-//     <>
-//       <p>Top Layout</p>
-//       <Outlet />
-//       <p>Bottom Layout</p>
-//     </>
-//   )
-// }
+const Home = lazy(() => import('./pages/Home'))
+const Heroes = lazy(() => import('./pages/Heroes'))
+const Battle = lazy(() => import('./pages/Battle'))
+const Search = lazy(() => import('./pages/Search'))
+const Layout = lazy(() => import('./hoc/Layout'))
+const Login = lazy(() => import('./pages/Login'))
+const Logout = lazy(() => import('./pages/Logout'))
+
 
 const App = () => {
-  const { counter, increment, decrement } = useCounter(15)
+  const [authenticated, setAuthenticated] = useState(false)
+  const [email, setEmail] = useState('')
+  const login = (email: string) => {
+    setEmail(email)
+    setAuthenticated(true)
+  }
+  const logout = () => {
+    setEmail('')
+    setAuthenticated(false)
+  }
   return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route
-            index
-            element={
-              <section>
-                <p>Counter: {counter}</p>
-                <button onClick={increment}>Incrémenter</button>
-                <button onClick={decrement}>Décrémenter</button>
-              </section>
-            }
-          />
-          <Route path='search' element={<Search />} />
-          <Route path='battle' element={<Battle />} />
-          <Route path='heroes' element={<Heroes />} />
-          <Route path='login' element={<Login />} />
-          {/* <Route path='login' element={<LoginLayout />}>
-            <Route path=':id' element={<Login />} />
-          </Route> */}
-        </Route>
-      </Routes>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Suspense fallback={<div>Loading...</div>}>
+          <AuthContext.Provider
+            value={{
+              // username: '',
+              email,
+              authenticated, // equivalent à authenticated: authenticated,
+              login,
+              logout,
+            }}
+          >
+            <Routes>
+              <Route path='/' element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path='search' element={<Search />} />
+                <Route path='battle' element={<Battle />} />
+                <Route path='heroes' element={<Heroes />} />
+                <Route path='cities' element={<Cities />} />
+                <Route path='login' element={<Login />} />
+                <Route path='logout' element={<Logout />} />
+              </Route>
+            </Routes>
+          </AuthContext.Provider>
+        </Suspense>
+      </Router>
+    </Provider>
   )
 }
 
