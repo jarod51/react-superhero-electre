@@ -40,9 +40,9 @@ const Search = () => {
         <input type="text" value={searchHero} onChange={onChangeHandler} />
       </div>
       <div>
-        {loading && <p>Loading...</p>}
+        {(loading || isPending) && <p>Loading...</p>}
         {error && <p className='text-red-600'>Error: {error}</p>}
-        {!loading && !error && heroes.length
+        {!isPending && !loading && !error && heroes.length
           ? <HeroesList heroes={heroes} />
           : request && <p>No heroes found</p>}
       </div>
