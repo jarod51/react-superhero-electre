@@ -1,4 +1,4 @@
-import { Hero } from '../types/hero'
+import { Hero } from '../../types/hero'
 
 type Props = {
   hero: Hero
@@ -15,7 +15,7 @@ const HeroCard = ({ hero }: Props): JSX.Element => {
         />
       </div>
       <div className='px-6 py-2'>
-        <h1 className='font-bold text-xl'>
+        <h1 className='font-bold text-xl' title='Hero ID'>
           {hero.name} <span className='text-gray-600 text-base'>#{hero.id}</span>
         </h1>
         <h2 className='text-lg mb-2'>{hero.biography['full-name']}</h2>
@@ -25,6 +25,7 @@ const HeroCard = ({ hero }: Props): JSX.Element => {
       </div>
       <div className='px-6 pt-1 pb-2'>
         <span
+          data-testid="intelligence"
           className={`inline-block ${
             +hero?.powerstats?.intelligence > 50
               ? 'bg-blue-200 text-blue-700'
