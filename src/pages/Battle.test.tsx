@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import Battle from './Battle'
 
 // Battle
@@ -20,12 +20,18 @@ test('should have an invisible button Battle', () => {
 	expect(battleButton).not.toBeVisible()
 })
 
-test('should have a visible button Battle when both heroes are selected', () => {
+test('should have a visible button Battle when both heroes are selected', async () => {
 	render(<Battle />)
-	const battleButton = screen.getByText('Battle')
 	const searchButtons = screen.getAllByText('Search')
-	searchButtons.forEach(btn => {
+	const inputs = screen.getAllByRole<HTMLInputElement>('textbox')
+	searchButtons.forEach((btn, index) => {
+		fireEvent.change(inputs[index], {
+			target: {
+				value: 'someValue'
+			}
+		})
 		fireEvent.click(btn)
 	})
+	const battleButton = screen.getByText('Battle')
 	expect(battleButton).toBeVisible()
 })
