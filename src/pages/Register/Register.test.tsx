@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import Register from './Register'
+import Register, { EmailError, PasswordError } from './Register'
 
 describe('Register Page', () => {
   test('should have a form with input type email and input type password', () => {
@@ -25,8 +25,8 @@ describe('Register Page', () => {
     const button = screen.getByText('SignUp')
     fireEvent.click(button)
     const errorEmail = await screen.findByTestId('email-error')
-    expect(errorEmail.textContent).toBe('Some error')
+    expect(errorEmail.textContent).toBe(EmailError.EMPTY)
     const errorPassword = await screen.findByTestId('password-error')
-    expect(errorPassword.textContent).toBe('Some error')
+    expect(errorPassword.textContent).toBe(PasswordError.EMPTY)
   })
 })

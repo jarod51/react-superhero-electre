@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
 
+export enum PasswordError {
+  EMPTY = 'Password should not be empty',
+}
+
+export enum EmailError {
+  EMPTY = 'Email should not be empty',
+}
+
 const Register = () => {
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState('')
@@ -7,8 +15,12 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState('')
   const onSubmitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    setEmailError('Some error')
-		setPasswordError('Some error')
+    if (!password) {
+      setPasswordError(PasswordError.EMPTY)
+    }
+    if (!email) {
+      setEmailError(EmailError.EMPTY)
+    }
   }
   return (
     <section>
