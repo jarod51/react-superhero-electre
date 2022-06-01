@@ -1,6 +1,6 @@
 import React, { useRef, useState, useTransition } from 'react'
 import HeroesList from '../../components/HeroesList'
-import useSearchHeroes from '../../hooks/useSearchHeroes'
+import { useSearchHeroes } from '../../hooks'
 
 const Search = () => {
   const { heroes, loading, error, onSearchHeroes } = useSearchHeroes()
