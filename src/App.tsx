@@ -12,6 +12,7 @@ const Search = lazy(() => import('./pages/Search'))
 const Layout = lazy(() => import('./hoc/Layout'))
 const Login = lazy(() => import('./pages/Login'))
 const Logout = lazy(() => import('./pages/Logout'))
+const Register = lazy(() => import('./pages/Register'))
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false)
@@ -46,6 +47,7 @@ const App = () => {
                 <Route path='cities' element={<Cities />} />
                 <Route path='login' element={<Login />} />
                 <Route path='logout' element={<Logout />} />
+                <Route path='register' element={<Register />} />
               </Route>
             </Routes>
           </AuthContext.Provider>

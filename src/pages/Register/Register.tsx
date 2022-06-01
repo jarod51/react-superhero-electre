@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import fetcher, { BASE_URL } from '../../api/fetcher'
 
 export enum PasswordError {
   EMPTY = 'Password should not be empty',
@@ -22,7 +23,16 @@ const Register = () => {
     if (!email) {
       setEmailError(EmailError.EMPTY)
     }
-    if (password && email) setAccessToken('dsfgdfgdsdfsf')
+    if (password && email) {
+      fetcher
+        .post<any>(`${BASE_URL}/register`, {
+          email,
+          password,
+        })
+        .then((response) => {
+          setAccessToken(response.data.accessToken)
+        })
+    }
   }
 
   return (

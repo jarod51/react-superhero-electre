@@ -30,21 +30,21 @@ describe('Register Page', () => {
     expect(errorPassword.textContent).toBe(PasswordError.EMPTY)
   })
 
-	test('should display Welcome message on success', () => {
+  test('should display Welcome message on success', () => {
     render(<Register />)
-		const emailInput = screen.getByLabelText<HTMLInputElement>('Email')
-		fireEvent.change(emailInput, {
-			target: 'test@email.fr'
-		})
+    const emailInput = screen.getByLabelText<HTMLInputElement>('Email')
+    fireEvent.change(emailInput, {
+      target: 'test@email.fr',
+    })
     const passwordInput = screen.getByLabelText<HTMLInputElement>('Password')
-		fireEvent.change(passwordInput, {
-			target: 'test'
-		})
-		const button = screen.getByText('SignUp')
+    fireEvent.change(passwordInput, {
+      target: 'test',
+    })
+    const button = screen.getByText('SignUp')
     fireEvent.click(button)
-		waitFor(async () => {
-			const welcome = await screen.findByText('Welcome')
-			expect(welcome).toBeInTheDocument()
-		})
-	})
+    waitFor(async () => {
+      const welcome = await screen.findByText('Welcome')
+      expect(welcome).toBeInTheDocument()
+    })
+  })
 })
