@@ -13,6 +13,7 @@ const Register = () => {
   const [emailError, setEmailError] = useState('')
   const [password, setPassword] = useState('')
   const [passwordError, setPasswordError] = useState('')
+  const [accessToken, setAccessToken] = useState('')
   const onSubmitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault()
     if (!password) {
@@ -21,7 +22,9 @@ const Register = () => {
     if (!email) {
       setEmailError(EmailError.EMPTY)
     }
+    if (password && email) setAccessToken('dsfgdfgdsdfsf')
   }
+
   return (
     <section>
       <h1>Register</h1>
@@ -46,6 +49,7 @@ const Register = () => {
         {passwordError && !password && <p data-testid='password-error'>{passwordError}</p>}
         <button>SignUp</button>
       </form>
+      {accessToken && <p>Welcome {accessToken}</p>}
     </section>
   )
 }

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import Register, { EmailError, PasswordError } from './Register'
 
 describe('Register Page', () => {
@@ -29,4 +29,22 @@ describe('Register Page', () => {
     const errorPassword = await screen.findByTestId('password-error')
     expect(errorPassword.textContent).toBe(PasswordError.EMPTY)
   })
+
+	test('should display Welcome message on success', () => {
+    render(<Register />)
+		const emailInput = screen.getByLabelText<HTMLInputElement>('Email')
+		fireEvent.change(emailInput, {
+			target: 'test@email.fr'
+		})
+    const passwordInput = screen.getByLabelText<HTMLInputElement>('Password')
+		fireEvent.change(passwordInput, {
+			target: 'test'
+		})
+		const button = screen.getByText('SignUp')
+    fireEvent.click(button)
+		waitFor(async () => {
+			const welcome = await screen.findByText('Welcome')
+			expect(welcome).toBeInTheDocument()
+		})
+	})
 })
