@@ -96,14 +96,14 @@ const makeSut = () => {
 test('should have one or more element in the list of heroes', () => {
   const { heroes } = makeSut()
   const { container } = render(<HeroesList heroes={heroes} />)
-	const parent = container.querySelector('div')
-	expect(parent?.childElementCount).toBe(heroes.length)
+  const parent = container.querySelector('div')
+  expect(parent?.childElementCount).toBe(heroes.length)
 })
 
 // Aucun hero
 test('should have one or more element in the list of heroes', () => {
   const heroes: Hero[] = []
   const { getByTitle } = render(<HeroesList heroes={heroes} />)
-	const parent = getByTitle('List of results')
-	expect(parent?.childElementCount).toBe(0)
+  const parent = getByTitle('List of results')
+  expect(parent?.childElementCount).toBe(0)
 })

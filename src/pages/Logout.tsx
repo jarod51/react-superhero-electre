@@ -5,7 +5,7 @@ import { logout } from '../redux/reducers/auth'
 // import AuthContext from '../context/auth-context'
 
 const Logout = () => {
-	// const { logout } = useContext(AuthContext)
+  // const { logout } = useContext(AuthContext)
   const dispatch = useAppDispatch()
   return (
     <section>

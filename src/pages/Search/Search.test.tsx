@@ -19,7 +19,9 @@ const spyOn = ({
   heroes = [],
   loading = false,
   error = '',
-  onSearchHeroes = () => {null},
+  onSearchHeroes = () => {
+    null
+  },
 }) => {
   jest.spyOn(hooks, 'useSearchHeroes').mockImplementation(() => ({
     heroes,

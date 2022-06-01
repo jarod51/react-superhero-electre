@@ -5,14 +5,14 @@ import { setupServer } from 'msw/node'
 import { heroes } from '../heroes'
 
 const server = setupServer(
-	rest.get('http://localhost:4000/heroes', (req, res, ctx) => {
-		const searchHero = req.url.searchParams.get('name_like')?.replace('^', '')
-		if (searchHero) {
-			const result = heroes.filter(hero => hero.name.toLowerCase().includes(searchHero))
-			return res(ctx.json(result))
-		}
-		return res(ctx.json(heroes))
-	})
+  rest.get('http://localhost:4000/heroes', (req, res, ctx) => {
+    const searchHero = req.url.searchParams.get('name_like')?.replace('^', '')
+    if (searchHero) {
+      const result = heroes.filter((hero) => hero.name.toLowerCase().includes(searchHero))
+      return res(ctx.json(result))
+    }
+    return res(ctx.json(heroes))
+  })
 )
 
 beforeAll(() => server.listen())

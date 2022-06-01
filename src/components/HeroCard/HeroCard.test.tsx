@@ -76,6 +76,6 @@ test('should have light blue if intelligence is 50 or less', () => {
 test('should have correct hero name on alternative of picture', () => {
   const { hero } = makeSut()
   render(<HeroCard hero={hero} />)
-	const image = screen.getByAltText(`Illustration of ${hero.name}`)
-	expect(image).toBeInTheDocument()
+  const image = screen.getByAltText(`Illustration of ${hero.name}`)
+  expect(image).toBeInTheDocument()
 })

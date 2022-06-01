@@ -25,7 +25,7 @@ const HeroCard = ({ hero }: Props): JSX.Element => {
       </div>
       <div className='px-6 pt-1 pb-2'>
         <span
-          data-testid="intelligence"
+          data-testid='intelligence'
           className={`inline-block ${
             +hero?.powerstats?.intelligence > 50
               ? 'bg-blue-200 text-blue-700'

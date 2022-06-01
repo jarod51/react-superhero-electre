@@ -13,7 +13,6 @@ const Layout = lazy(() => import('./hoc/Layout'))
 const Login = lazy(() => import('./pages/Login'))
 const Logout = lazy(() => import('./pages/Logout'))
 
-
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false)
   const [email, setEmail] = useState('')

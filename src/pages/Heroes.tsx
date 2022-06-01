@@ -11,7 +11,6 @@ const generateLetters = () => {
   return letters
 }
 
-
 const Heroes = () => {
   // Fonction pure:
   // 	- pour un input donné, on aura toujours le même output en sortie
@@ -72,10 +71,7 @@ const Heroes = () => {
       </ul>
       {error && <p className='text-red-600'>Houston, we have a problem: {error}</p>}
       {loading && <p>Loading...</p>}
-      {heroes.length > 0 &&
-        !loading &&
-        !error &&
-        <HeroesList heroes={heroes} />}
+      {heroes.length > 0 && !loading && !error && <HeroesList heroes={heroes} />}
     </section>
   )
 }
