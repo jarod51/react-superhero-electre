@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import Button from '../components/Button'
 import HeroesList from '../components/HeroesList'
-import useSearchHeroes from '../hooks/useSearchHeroes'
+import { useSearchHeroes } from '../hooks/useSearchHeroes'
 
 const generateLetters = () => {
   const letters: string[] = []

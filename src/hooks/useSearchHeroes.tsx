@@ -37,4 +37,4 @@ const useSearchHeroes = (letter?: string) => {
   }
 }
 
-export default useSearchHeroes
+export { useSearchHeroes }
