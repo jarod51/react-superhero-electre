@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import Button from '../components/Button'
 import HeroesList from '../components/HeroesList'
-import useSearchHeroes from '../hooks/useSearchHeroes'
+import { useSearchHeroes } from '../hooks/useSearchHeroes'
 
 const generateLetters = () => {
   const letters: string[] = []
@@ -10,7 +10,6 @@ const generateLetters = () => {
   }
   return letters
 }
-
 
 const Heroes = () => {
   // Fonction pure:
@@ -72,10 +71,7 @@ const Heroes = () => {
       </ul>
       {error && <p className='text-red-600'>Houston, we have a problem: {error}</p>}
       {loading && <p>Loading...</p>}
-      {heroes.length > 0 &&
-        !loading &&
-        !error &&
-        <HeroesList heroes={heroes} />}
+      {heroes.length > 0 && !loading && !error && <HeroesList heroes={heroes} />}
     </section>
   )
 }

@@ -14,4 +14,4 @@ const useCounter = (number = 0) => {
   }
 }
 
-export default useCounter
+export { useCounter }

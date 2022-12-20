@@ -15,7 +15,7 @@ const Login = () => {
       email,
       password,
     })
-    if (email === "admin@email.com" && password === "admin") {
+    if (email === 'admin@email.com' && password === 'admin') {
       // login(email)
       dispatch(login(email))
     }
@@ -34,7 +34,13 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <label htmlFor='password'>Password</label>
-        <input type='password' id='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input
+          type='password'
+          id='password'
+          name='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <button>Login</button>
       </form>
     </section>

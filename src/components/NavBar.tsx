@@ -36,10 +36,16 @@ const NavBar = () => {
       name: 'logout',
     })
   } else {
-    links.push({
-      path: 'login',
-      name: 'login',
-    })
+    links.push(
+      {
+        path: 'login',
+        name: 'login',
+      },
+      {
+        path: 'register',
+        name: 'register',
+      }
+    )
   }
   return (
     <nav>

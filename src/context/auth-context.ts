@@ -7,7 +7,9 @@ const AuthContext = createContext({
   login: (email: string) => {
     void email
   },
-  logout: () => {null},
+  logout: () => {
+    null
+  },
 })
 
 export default AuthContext

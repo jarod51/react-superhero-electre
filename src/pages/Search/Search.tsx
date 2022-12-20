@@ -1,6 +1,6 @@
 import React, { useRef, useState, useTransition } from 'react'
-import HeroesList from '../components/HeroesList'
-import useSearchHeroes from '../hooks/useSearchHeroes'
+import HeroesList from '../../components/HeroesList'
+import { useSearchHeroes } from '../../hooks'
 
 const Search = () => {
   const { heroes, loading, error, onSearchHeroes } = useSearchHeroes()
@@ -32,19 +32,21 @@ const Search = () => {
         <label htmlFor='hero' className='mr-6'>
           Hero
         </label>
-        <input ref={searchInputRef} type='text' id='hero' name='hero' />
+        <input ref={searchInputRef} type='text' id='hero' name='hero' placeholder='search hero' />
         <button>Search</button>
       </form>
       <div>
         <p>Search on each keystroke:</p>
-        <input type="text" value={searchHero} onChange={onChangeHandler} />
+        <input type='text' value={searchHero} onChange={onChangeHandler} />
       </div>
       <div>
         {(loading || isPending) && <p>Loading...</p>}
         {error && <p className='text-red-600'>Error: {error}</p>}
-        {!isPending && !loading && !error && heroes.length
-          ? <HeroesList heroes={heroes} />
-          : request && <p>No heroes found</p>}
+        {!isPending && !loading && !error && heroes.length ? (
+          <HeroesList heroes={heroes} />
+        ) : (
+          request && <p>No heroes found</p>
+        )}
       </div>
     </section>
   )
